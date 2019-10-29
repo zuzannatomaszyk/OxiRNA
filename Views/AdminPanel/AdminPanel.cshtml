@@ -1,0 +1,75 @@
+@model List<TemporaryTableModel>
+@{
+      ViewData["Title"] = "AdminPanel";
+}
+<h1 class="display-4">OxiRNA</h1>
+
+
+<div>
+    <a class="downloadButtonAdmin" href="/AdminPanel/AcceptData?id=">Accept all data and insert into OxiRNA database</a>
+    <a class="downloadButtonAdmin" href="/AdminPanel/RejectData?id=">Reject and dalete all data</a>
+</div>
+
+<div class="table-responsive">
+    <table class="ResultTable">
+        <tr>
+            <th>Name</th>
+            <th>Contact</th>
+            <th>Genbank id</th>
+            <th>Sequence name</th>
+            <th>Sequence</th>
+            <th>About</th>
+            <th>Species</th>
+            <th>Taxon</th>
+            <th>Article</th>
+            <th>Journal</th>
+        </tr>
+  @foreach (var item in Model)
+    {
+        <tr id="@item.id">
+            <td>
+                @item.name
+            </td>
+            <td>
+                @item.contact
+            </td>
+            <td>
+                @item.genbank
+            </td>
+            <td>
+                @item.sequenceName
+            </td>
+            <td>
+                <a>
+                    @item.sequence
+                </a>
+            </td>
+            <td>
+              @if(!String.IsNullOrEmpty(item.about)) {
+                <div class="my-tooltip">INFO<span class="my-tooltiptext">@item.about</span></div>
+              }
+            </td>
+            <td>
+                @item.species
+            </td>
+            <td>
+                @item.taxon
+            </td>
+            <td>
+                <a href = @item.articleLink target="_blank" rel="noopener noreferrer nofollow">
+                @item.article
+                </a>
+            </td>
+            <td>
+                @item.journal
+            </td>
+             <td>
+                <a style="border-right:1px solid #ddd; color: LightGreen; font-weight: bold;" href="/AdminPanel/AcceptData?id=@item.id">ACCEPT</a>
+            </td>
+             <td>
+                <a style="color: Tomato; font-weight: bold;" href="/AdminPanel/RejectData?id=@item.id">REJECT</a>
+            </td>
+        </tr>
+    }
+    </table>
+</div>

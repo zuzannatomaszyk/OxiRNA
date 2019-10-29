@@ -1,0 +1,137 @@
+@{
+    ViewData["Title"] = "Submit";
+}
+<div class="text-center">
+    <h1 class="display-4">Enter your data</h1>
+</div>
+
+<hr class="line">
+<div class="table-responsive">
+    <table class="SubmitTable">
+        <tr>
+            <td>
+            <tspan>Name</tspan>
+            </td>
+            <td>
+            <input class="textInputLong" id="name"></input>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <tspan>Contact</tspan>
+            </td>
+            <td>
+            <input class="textInputLong" id="contact"></input>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <tspan>Sequence name*</tspan>
+            </td>
+            <td>
+                <input class="textInputLong" id="sequenceName"></input>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <tspan>Genbank id*</tspan>
+            </td>
+            <td>
+                <input class="textInputLong" id="genbank"></input>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <tspan>Sequence*</tspan>
+            </td>
+            <td>
+                <div style="padding: 5px;margin: 5px;">
+                    <input  type="file" id="sequenceFile" name="file" onchange='getStringFromFile(event)'>
+                    <input style="display: None;" id="sequenceFileString"></input><br>
+                    <tspan>or paste it</tspan>
+                </div>
+                    
+                <div>
+                    <input class="textInputBig" id="sequence"></input>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <tspan>Additional information about sequence (not required)</tspan>
+            </td>
+            <td>
+            <input class="textInputBig" id="about"></input>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <tspan>Taxon*</tspan>
+            </td>
+            <td>
+                <select style="width: 300px;" id="taxon">
+                    <option>Animalia</option>
+                    <option>Plantae</option>
+                    <option>Fungi</option>
+                    <option>Bacteria</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <tspan>Species*</tspan>
+            </td>
+            <td>
+            <input class="textInputLong" id="species"></input>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <tspan>Journal*</tspan>
+            </td>
+            <td>
+            <input class="textInputLong" id="journal"></input>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <tspan>Article name*</tspan>
+            </td>
+            <td>
+            <input class="textInputLong" id="article"></input>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <tspan>Article link*</tspan>
+            </td>
+            <td>
+            <input class="textInputLong" id="articleLink"></input>
+            </td>
+        </tr>
+    </table>        
+</div>
+<div style="text-align: center;">
+  <a id="EmptyFields" style="color: Tomato; font-weight: bold; visibility: hidden;">Required fields not completed</a>
+  </div>
+<div style="text-align: center;">
+    <button class="searchButton" onclick="gatherAndSubmitData()">SUBMIT</button>
+</div> 
+
+<form id="form1" method="post" action="/api/SubmitData" enctype="application/x-www-form-urlencoded">
+    <input style="display: None;" name="name" id="nameForm"></input>
+    <input style="display: None;" name="contact" id="contactForm"></input>
+    <input style="display: None;" name="genbank" id="genbankForm"></input>
+    <input style="display: None;" name="sequenceName" id="sequenceNameForm"></input>
+    <input style="display: None;" name="sequence" id="sequenceForm"></input>
+    <input style="display: None;" name="about" id="aboutForm"></input>
+    <input style="display: None;" name="species" id="speciesForm"></input>
+    <input style="display: None;" name="taxon" id="taxonForm"></input>
+    <input style="display: None;" name="article" id="articleForm"></input>
+    <input style="display: None;" name="articleLink" id="articleLinkForm"></input>
+    <input style="display: None;" name="journal" id="journalForm"></input>
+    <input style="display: None;" id="realSubmitButton" type="submit"/>
+</form>
+
+
+

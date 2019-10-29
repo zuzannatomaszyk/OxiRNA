@@ -1,0 +1,30 @@
+@{
+    ViewData["Title"] = "Browse";
+}
+
+
+<div class="main_container">
+    <form id="form1" method="post" action="SearchResults">
+        <div style="text-align: center;">
+            <span style="font-weight: bold;">Simple search:</span><br>
+            <input class="textInput" name="SimpleSearchInput" type="text" />
+            
+        </div>
+        <div>
+            <input class="textInput" class="searchButton" type="submit" value="SEARCH" />
+        </div>
+    </form>
+
+    <hr class="line">
+        <span style="font-weight: bold;">Query builder:</span>
+        <span id="queryResult" style="width: 850px; background-color: lightgrey; margin-top: 20px; text-align: center;"></span>
+    <form id="form2" method="post" action="AdvanceSearch" >
+        <div id="content" onchange="visualizeQueryFilter()">
+            <div class="bar onlyOne" id="last-bar"><label class="notBuilderNotSelected"><input type="hidden" name="nots" value="off" /><input name="nots" value="on" type="checkbox" onclick="checkboxChange(this)"> Not</label><select name="selects"><option>Sequence name</option><option>Genbank id</option><option>Journal</option><option>Article</option><option>Taxon</option><option>Species</option></select><input name="inputs" class="textInput"/><button type="button" class="minus-button" onclick="minusAction(this)">-</button><button type="button" class="plus-button" onclick="plusAction()">+</button></div>
+        </div>
+        <input style="display: None;" id="AdvancedSearchButton" type="submit"></input>
+    </form>
+    <button id="QueryBuilderButton" name="QueryBuilderButton" class="searchButton" onclick="sendAdvancedSearchForm()">SEARCH</button>
+
+</div>
+

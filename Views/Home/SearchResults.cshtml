@@ -1,0 +1,38 @@
+@model URLModel
+@{
+    ViewData["Title"] = "Search";
+}
+<h1 class="display-4">OxiRNA</h1>
+<a style="display: None;" id="downloadMultipleLink" href ="">Download</a>
+<a style="display: None;" id="downloadMetadata" href ="">Download</a>
+<div id="content-seen" style="display: none;">
+  <div>
+      <button id="selectAllButton" class="downloadButton" onclick="selectAllRows()">Select all</button>
+      <button id="unselectAllButton" class="downloadButton" onclick="unselectAllRows()">Unselect all</button>
+  </div>
+  <hr>
+  <div>
+      <button id="fastaDownloadButton" class="downloadButton" onclick="downloadSequences()">Download selected sequences in ZIP</button>
+      <button id="metadataDownloadButton" class="downloadButton" onclick="downloadMetadata()">Download selected sequences' metadata in csv file</button>
+  </div>
+  <hr>
+
+  <div class="table-responsive">
+      <table id='resultsTable' class="ResultTable">
+          <tr>
+              <th>Genbank id</th>
+              <th>Sequence name</th>
+              <th>Download</th>
+              <th></th>
+              <th>Species</th>
+              <th>Taxon</th>
+              <th>Article</th>
+              <th>Journal</th>
+              <th>Additional info</th>
+          </tr>
+      
+      </table>
+  </div>
+</div>
+<div id="no-content-seen" style="display: none;"></div>
+<script>getSequenceData("@Html.Raw(Model.url)")</script>

@@ -1,0 +1,193 @@
+@{
+    ViewData["Title"] = "Tutorial";
+}
+<h1>OxiRNA Tutorial</h1>
+
+<h2>Browsing OxiRNA database</h2>
+
+<p>When it comes to browsing OxiRNA database user can do it through Home page or Browse Page. 
+On Home Page there is Simple Search form. User can type any phrase into input box and then hit the “search” button below. User will see a table with sequences that fit criteria (phrase from input box must be within at least one field). 
+</p>
+
+<img src="~/resources/home.png"  width="100%" style="padding:5%">
+
+<p>On Browse Page there is Simple Search form and Advanced Search form. Using Advanced Search Form user can build more specific query. User can search for specific phrase in a field that is selected in combobox. It is possible to look for as many different phrases in other fields as the user needs by simply pressing “+” button to add another field. He can also press “-” button to delete the field he added before. In addition user can also specify a phrase that can not be in a certain field by checking “Not” checkbox. After hitting “search” button user will see a table with sequences that fit criteria. 
+</p>
+
+<img src="~/resources/Search.png"  width="100%" style="padding:5%">
+
+<h2>Download data form OxiRNA
+ </h2>
+
+<p>It is possible to download data from OxiRNA database directly from Result page (result page is shown after user hit Search button in Simple or Advanced Search Form). It is possible to download sequences and metadata. User can download as many sequences as he wants. To download a single sequence in fasta file or metadata about it in csv file user needs to press FASTA or METADATA in “Download” column. 
+To download multiple sequences user needs to check all the rows with sequences he wants to download and press “Download selected files in zip”. Then the zip file that stores all fasta files with sequences is provided to the user.
+To download metadata about more than one sequence user needs to check all the rows with sequences he is interested in and then hit the “Download selected sequences' metadata in csv file”. 
+ </p>
+
+ <img src="~/resources/search_result.png"  width="100%" style="padding:5%">
+
+<h2>Submit data 
+</h2>
+
+ <p>OxiRNA website allows users to contribute to OxiRNA database development by submitting their own data. It is possible on Submit data page. There is a submit form where user can provide data. It is required to provide RNA sequence and metadata that includes sequence name, it’s genbank id, organism informations and source of all above (article and journal where the article was published). It is possible to paste RNA sequence or upload a fasta file. User can also provide some additional informations that does not fit in any existing field. User can (but it is not required) provide contact information. It will be used only to contact him in case of any doubts about informations he provided.   
+ </p>
+
+ <img src="~/resources/submit.png"  width="100%" style="padding:5%">
+
+ <h2>OxiRNA API</h2>
+
+<p>OxiRNA also provides web api that can be used to access data. All API responses are in JSON format. OxiRNA API provides following methods:
+ </p>
+
+ <ol>
+  <h5><li>Sequences</h5>
+      <p>/api/sequences - Return all sequences present in database and metadata about them. <p>
+      <h6>Result structure: </h6>
+        <pre>
+        <code> 
+            [ {
+                "genbank": "genbank id",
+                "sequenceName": "name of the sequence",
+                "sequence": "sequence in fasta format",
+                "species": "name of the species the sequence belongs to",
+                "taxon": "name of the kingdom the species belongs to",
+                "article": "name of the article in which sequence was published",
+                "articleLink": "link to the article",
+                "journal": " name of the journal in which sequence was published",
+                "about": "any additional informations"
+            } ]
+        </code>
+        </pre>
+      <h6>Filters: </h6>
+        <ul>
+            <li>anything - filters by every field </li>
+            <li>name - filters by sequence name </li>
+            <li>genbank - filters by genbank id (case insensitive)</li>
+            <li>journal - filters by name of the journal in which sequence was published </li>
+            <li>article -  filters by name of the article in which sequence was published</li>
+            <li>article -  filters by name of the article in which sequence was published</li>
+            <li>article -  filters by name of the article in which sequence was published</li>
+        </ul>  
+        <p>User needs to specify whether the phrase used to filter must be or can not be in a certain field. All filters are case insensitive.</p>
+        <h6>Examples: </h6>
+        <ul >
+            <li><p>/api/sequences?anything=Homo</p> 
+            <p>This will look for any sequence that has phrase “Homo” in any field.</p>  
+            </li>
+            <li><p>/api/sequences?species=Sapiens&species=true</p> 
+            <p>This will look for any sequence that belongs to the species that has phrase “Sapiens” in its name. </p>  
+            </li>
+            <li><p>/api/sequences?species=Sapiens&species=false</p> 
+            <p>This will look for any sequence that belongs to the species that does not have phrase “Sapiens” in its name. </p> 
+            </li>
+        </ul>
+  </li>
+  <h5><li>Species</h5>
+      <p>/api/species - Return all species present in database.<p>
+      <h6>Result structure: </h6>
+        <pre>
+        <code> 
+            [{
+                "name": "name of species"
+            },
+            {
+                "name": "another name"
+            }]
+        </code>
+        </pre>
+      <h6>Filters: </h6>
+        <ul>
+            <li> name - filters by name (case insensitive)</li>
+        </ul>  
+       
+        <h6>Examples: </h6>
+        <ul >
+            <li><p>/api/species?name=Sapiens</p> 
+            <p> This will look for any species that has phrase "Sapiens" in its name.  </p>  
+            </li>
+        </ul>
+  </li>
+    <h5><li>Taxon</h5>
+      <p>/api/taxon - Return all kingdoms present in database.<p>
+      <h6>Result structure: </h6>
+        <pre>
+        <code> 
+           [{
+                "name": "name of kingdom"
+            },
+            {
+                "name": "another name"
+            }]
+        </code>
+        </pre>
+      <h6>Filters: </h6>
+        <ul>
+            <li>name - filters by name (case insensitive)</li>
+        </ul>  
+       
+        <h6>Examples: </h6>
+        <ul >
+            <li><p>/api/taxon?name=Animalia</p> 
+            <p>This will look for any kingdom that has phrase "Animalia" in its name. </p>  
+            </li>
+        </ul>
+  </li>
+   <h5><li>Journal</h5>
+      <p>/api/journal - Return all journals present in database. <p>
+      <h6>Result structure: </h6>
+        <pre>
+        <code> 
+           [{
+                "name": "name of journal"
+            },
+            {
+                "name": "another name"
+            }]  
+        </code>
+        </pre>
+      <h6>Filters: </h6>
+        <ul>
+            <li>\item name - filters by name (case insensitive)</li>
+        </ul>  
+       
+        <h6>Examples: </h6>
+        <ul >
+            <li><p>/api/journal?name=science</p> 
+            <p>This will look for any journal that has phrase "science" in its name. </p>  
+            </li>
+        </ul>
+  </li>
+    <h5><li>Article</h5>
+      <p>/api/article - Return all articles present in database. <p>
+      <h6>Result structure: </h6>
+        <pre>
+        <code> 
+           [{
+                "articleName": "name of article",
+                "link": "link to the article",
+                "journalName": "name of a journal in which the article was published"
+            },
+            {
+                "articleName": "name of another article",
+                "link": "link to the article",
+                "journalName": "name of a journal in which the article was published"
+            }]
+        </code>
+        </pre>
+      <h6>Filters: </h6>
+        <ul>
+            <li>articleName - filters by name of an article (case insensitive)</li>
+            <li>journalName - filters by name of a journal in which the article was published (case insensitive)</li>
+        </ul>  
+       
+        <h6>Examples: </h6>
+        <ul >
+            <li><p>/api/article?articleName=alzheimer</p> 
+            <p>This will look for any article that has phrase "alzheimer" in its name. </p>  
+            </li>
+             <li><p>/api/species?name=Sapiens</p> 
+            <p>This will look for any species that has phrase "Sapiens" in its name. </p>  
+            </li>
+        </ul>
+  </li>
+</ol>
